@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products - K_SOFT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">
+</head>
+<body>
+
+    <div class="top-right">
+        <a href="{{ url_for('main.cart') }}" class="cart-button">🧺</a>
+    </div>
+
+    <div class="container">
+        <h1>Available Products</h1>
+
+        <div class="product-grid">
+            {% for pid, product in products.items() %}
+            <div class="product-card">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                <div class="product-details">
+                    <h2 class="product-name">{{ product.name }}</h2>
+                    <p class="product-price">KSh {{ product.price }}</p>
+                    <a href="{{ url_for('main.add_to_cart', prod_id=pid) }}" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+            {% endfor %}
+     <a href="{% if session.get('admin_user') %}{{ url_for('main.admin_dashboard') }}{% else %}{{ url_for('main.dashboard') }}{% endif %}" class="back-button">← Back to dashboard</a>
+
+</a>
+
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vo.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('main.admin_dashboard') }}" class="back-btn">← Back to Dashboard</a>
+    
+    <div class="order-container">
+        <h2>Order Management</h2>
+        
+        {% if orders %}
+            {% for order in orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>Order #{{ order.id }}</h3>
+                        <span class="status-{{ order.status|lower }}"><strong>{{ order.status|upper }}</strong></span>
+                    </div>
+                    
+                    <div class="order-meta">
+                        <div>
+                            <p><strong>Customer:</strong> {{ order.user }}</p>
+                            {% if order.phone %}
+                            <p><strong>Phone:</strong> {{ order.phone }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <p><strong>Date:</strong> 
+                                {% if order.timestamp %}
+                                    {{ order.timestamp|datetimeformat if order.timestamp is not string else order.timestamp }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </p>
+                            <p><strong>Items:</strong> {{ order['items']|length }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="order-items">
+                        <h4>Order Items</h4>
+                        <ul>
+                            {% if order['items'] is mapping %}
+                                {% for item_id, item in order['items'].items() %}
+                                    <li>
+                                        <span>{{ item.name }} ({{ item.quantity }} × KSh{{ item.price }})</span>
+                                        <span>KSh{{ item.quantity * item.price }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                {% for item in order['items'] %}
+                                    <li>
+                                        <span>{{ item.name }} ({{ item.quantity }} × KSh{{ item.price }})</span>
+                                        <span>KSh{{ item.quantity * item.price }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    
+                    <div class="order-total">
+                        {% set total = 0 %}
+                        {% if order['items'] is mapping %}
+                            {% for item in order['items'].values() %}
+                                {% set total = total + (item.quantity * item.price) %}
+                            {% endfor %}
+                        {% else %}
+                            {% for item in order['items'] %}
+                                {% set total = total + (item.quantity * item.price) %}
+                            {% endfor %}
+                        {% endif %}
+                        Total: KSh{{ total }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="order-card empty-state">
+                <p>No orders found.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

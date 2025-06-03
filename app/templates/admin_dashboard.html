@@ -1,0 +1,32 @@
+<h1>Admin Dashboard</h1>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+<div class="top-right-btn">
+    <a href="{{ url_for('main.products') }}" class="products-btn">🛒 View Storefront</a>
+</div>
+<div class="top-left-btn">
+    <a href="{{ url_for('main.admin_logout') }}" class="logout-btn">🚪 Logout</a>
+</div>
+<div class="bottom-left-btn">
+    <a href="{{ url_for('main.view_orders') }}" class="view-order-btn">📋 View Orders</a>
+</div>
+
+<form method="post" action="{{ url_for('main.add_product') }}">
+    <input type="text" name="name" placeholder="Product name" required>
+    <input type="number" name="price" placeholder="Price" required>
+    <input type="text" name="image" placeholder="Image URL">
+    <button type="submit">Add Product</button>
+</form>
+
+<table>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>KSh {{ product.price }}</td>
+        <td>
+            <form method="post" action="{{ url_for('main.delete_product', pid=product.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

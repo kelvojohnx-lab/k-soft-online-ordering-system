@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - K_SOFT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash.css') }}">
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <nav class="dashboard-nav">
+        <h2>K_SOFT</h2>
+        <a href="{{ url_for('main.products') }}" class="nav-card">🛒 View Products</a>
+        <a href="{{ url_for('main.cart') }}" class="nav-card">🧺 View Cart</a>
+        <a href="{{ url_for('main.logout') }}" class="nav-card">🚪 Logout</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="dashboard-container">
+        <h1>Welcome to your Dashboard, {{ user }}!</h1>
+
+        <section class="options">
+            <h2>Your Options</h2>
+            <ul>
+                <li>🛒 Browse Products</li>
+                <li>🧺 Check Shopping Cart</li>
+                <li>📦 Your Recent Orders</li>
+            </ul>
+        </section>
+
+      <section class="orders">
+  <h2>Your Recent Orders</h2>
+
+  {% if orders %}
+    <div class="order-cards">
+      {% for oid, order in orders.items() %}
+        <div class="order-card">
+          <h3>Order ID: {{ oid }}</h3>
+          <p class="order-timestamp">
+            Ordered on: 
+            {{ order.timestamp | default('N/A') | datetimeformat }}
+          </p>
+          <ul class="order-items">
+            {% for item in order["items"] %}
+              <li>{{ item.quantity }} × {{ item.name }} - KSh {{ item.price }}</li>
+            {% endfor %}
+          </ul>
+
+          <!-- ✅ Terminate button moved here -->
+          <form action="{{ url_for('main.terminate_order', order_id=oid) }}" method="post" onsubmit="return confirm('Are you sure you want to terminate this order?');">
+            <button type="submit" class="terminate-btn">Terminate Order</button>
+          </form>
+
+          <form action="{{ url_for('main.reorder', order_id=oid) }}" method="post">
+            <button type="submit" class="reorder-btn">Reorder</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-orders">No recent orders yet.</p>
+  {% endif %}
+</section>
+
+
+
+
+    </div>
+</div>
+
+</body>
+</html>

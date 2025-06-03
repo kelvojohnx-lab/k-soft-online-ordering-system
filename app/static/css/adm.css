@@ -1,0 +1,163 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+    position: relative;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+/* Button Styles */
+.top-right-btn, .top-left-btn, .bottom-left-btn {
+    position: fixed;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.top-right-btn {
+    top: 20px;
+    right: 20px;
+}
+
+.top-left-btn {
+    top: 20px;
+    left: 20px;
+}
+
+.bottom-left-btn {
+    bottom: 20px;
+    left: 20px;
+}
+
+.products-btn, .logout-btn, .view-order-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.products-btn {
+    background-color: #2ecc71;
+    color: white;
+    border: 1px solid #27ae60;
+}
+
+.products-btn:hover {
+    background-color: #27ae60;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: 1px solid #c0392b;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.view-order-btn {
+    background-color: #3498db;
+    color: white;
+    border: 1px solid #2980b9;
+}
+
+.view-order-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Form Styles */
+form {
+    max-width: 600px;
+    margin: 60px auto 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+td form {
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+td button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+td button:hover {
+    background-color: #c0392b;
+}

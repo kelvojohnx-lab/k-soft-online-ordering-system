@@ -1,0 +1,22 @@
+<!-- templates/admin_login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adm_login.css') }}">
+<body>
+  <h2>Admin Login</h2>
+  <form method="post">
+    <input type="email" name="email" placeholder="Admin email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p class="{{ category }}">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+</body>
+</html>
