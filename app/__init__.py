@@ -34,8 +34,8 @@ def create_app():
     # Attach auth and database clients to app
     app.firebase_auth = firebase.auth()
     app.firebase_db   = firebase.database()
-    app.config['ADMIN_EMAIL'] = 'anthonymutindak@gmail.com'
-    app.config['ADMIN_PASSWORD'] = '401'
+    app.config['ADMIN_EMAIL'] = 'kelvojohnx001@gmail.com'
+    app.config['ADMIN_PASSWORD'] = '401203'
     # Register your routes blueprint
     app.register_blueprint(main)
 

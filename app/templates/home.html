@@ -5,42 +5,62 @@
   <meta charset="UTF-8">
   <title>K_SOFT ORDERING SYSTEM</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/h.css') }}">
-  <style>
-    .form-container { display: none; }
-    .form-container.active { display: block; }
-  </style>
 </head>
-<a href="{{ url_for('main.admin_login') }}" class="admin-login-btn">Admin Login</a>
 <body>
+  <a href="{{ url_for('main.admin_login') }}" class="admin-login-btn">Admin Login</a>
+
   <div class="container">
     <h1>Welcome to K_SOFT ONLINE ORDERING SYSTEM</h1>
     <p>Your one-stop shop for seamless online ordering.</p>
 
-    <!-- Nav Tabs -->
-    <nav>
-      <button onclick="showForm('login')">Login</button>
-      <button onclick="showForm('register')">Register</button>
-    </nav>
-
-    <!-- Login Form -->
-    <div id="login" class="form-container {% if form_type == 'login' %}active{% endif %}">
-      <form method="POST" action="{{ url_for('main.login') }}">
-        <h2>Login</h2>
-        <label>Email:</label><input type="email" name="email" required><br>
-        <label>Password:</label><input type="password" name="password" required><br>
-        <button type="submit">Login</button>
-      </form>
+    <!-- Product Grid -->
+    <div class="product-grid">
+      {% for pid, product in products.items() %}
+      <div class="product-card">
+        <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+        <div class="product-details">
+          <h2 class="product-name">{{ product.name }}</h2>
+          <p class="product-price">KSh {{ product.price }}</p>
+          {% if session.get('user_id') %}
+            <a href="{{ url_for('main.add_to_cart', prod_id=pid) }}" class="add-to-cart">Add to Cart</a>
+          {% else %}
+            <button onclick="showLoginModal()" class="add-to-cart">Add to Cart</button>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <!-- Register Form -->
-    <div id="register" class="form-container {% if form_type == 'register' %}active{% endif %}">
-      <form method="POST" action="{{ url_for('main.register') }}">
-        <h2>Register</h2>
-        <label>Name:</label><input type="text" name="name" required><br>
-        <label>Email:</label><input type="email" name="email" required><br>
-        <label>Password:</label><input type="password" name="password" required><br>
-        <button type="submit">Register</button>
-      </form>
+  <!-- Login/Register Modal -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal">
+      <nav>
+        <button onclick="showForm('login')">Login</button>
+        <button onclick="showForm('register')">Register</button>
+        <button onclick="closeModal()">✖</button>
+      </nav>
+
+      <!-- Login Form -->
+      <div id="login" class="form-container active">
+        <form method="POST" action="{{ url_for('main.login') }}">
+          <h2>Login</h2>
+          <label>Email:</label><input type="email" name="email" required><br>
+          <label>Password:</label><input type="password" name="password" required><br>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register" class="form-container">
+        <form method="POST" action="{{ url_for('main.register') }}">
+          <h2>Register</h2>
+          <label>Name:</label><input type="text" name="name" required><br>
+          <label>Email:</label><input type="email" name="email" required><br>
+          <label>Password:</label><input type="password" name="password" required><br>
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -48,6 +68,15 @@
     function showForm(type) {
       document.querySelectorAll('.form-container').forEach(el => el.classList.remove('active'));
       document.getElementById(type).classList.add('active');
+    }
+
+    function showLoginModal() {
+      document.getElementById('loginModal').classList.add('active');
+      showForm('login');
+    }
+
+    function closeModal() {
+      document.getElementById('loginModal').classList.remove('active');
     }
   </script>
 </body>

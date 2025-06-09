@@ -1,56 +1,228 @@
+/* ===== Global Styles ===== */
 body {
-  background: url("../images/img11.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  color: #fff;
-  text-align: center;
-  padding: 40px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: auto;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
 }
 
-nav button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-form {
-  margin-top: 20px;
+p {
+  font-size: 1.2rem;
+  color: #666;
 }
 
-input {
-  margin: 8px 0;
-  padding: 10px;
-  width: 90%;
-  border-radius: 4px;
-  border: none;
-}
-button[type="submit"] {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-top: 10px;
-  cursor: pointer;
-}
+/* ===== Admin Login Button ===== */
 .admin-login-btn {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 15px;
+  top: 1rem;
+  right: 1rem;
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .admin-login-btn:hover {
-  background-color: #555;
+  background-color: #0056b3;
+}
+
+/* ===== Product Grid ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-details {
+  padding: 1rem;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.product-price {
+  color: #555;
+  font-size: 1rem;
+}
+
+.add-to-cart {
+  margin-top: 1rem;
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #218838;
+}
+
+/* ===== Modal Overlay ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+/* ===== Modal Box ===== */
+.modal {
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Modal Navigation Buttons ===== */
+.modal nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal nav button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal nav button:hover {
+  text-decoration: underline;
+}
+
+.modal nav button:last-child {
+  color: red;
+  font-size: 1.2rem;
+}
+
+/* ===== Login & Register Forms ===== */
+.form-container {
+  display: none;
+}
+
+.form-container.active {
+  display: block;
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #222;
+  text-align: center;
+}
+
+.form-container label {
+  display: block;
+  text-align: left;
+  margin: 0.5rem 0 0.3rem;
+  font-weight: 500;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.form-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ===== Submit Button ===== */
+.form-container button[type="submit"] {
+  margin-top: 1.2rem;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    margin: 1rem;
+  }
+
+  .admin-login-btn {
+    position: static;
+    display: block;
+    margin: 1rem auto;
+  }
 }

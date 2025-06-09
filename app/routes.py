@@ -2,11 +2,51 @@ from flask import Blueprint, render_template, request, redirect, flash, current_
 import uuid
 
 main = Blueprint('main', __name__)
+def get_products():
+    db = current_app.firebase_db
+    prods = db.child("products").get().val()
+
+    if not prods:
+        dummy_data = {
+            "1": {
+                "name": "Dummy Laptop",
+                "price": "40000",
+                "image": url_for('static', filename='images/lp.jpg')
+            },
+            "2": {
+                "name": "Dummy Phone",
+                "price": "15000",
+                "image": url_for('static', filename='images/phone.jpg')
+            },
+            "3": {
+                "name": "Dummy Headphones",
+                "price": "3500",
+                "image": url_for('static', filename='images/hp.jpg')
+            }
+        }
+        db.child("products").set(dummy_data)
+        prods = dummy_data
+
+    if isinstance(prods, list):
+        prods = {str(i + 1): p for i, p in enumerate(prods)}
+
+    valid_products = {}
+    for pid, product in prods.items():
+        if not product:
+            continue
+        if 'image' not in product or not product['image']:
+            product['image'] = url_for('static', filename='images/default-product.jpg')
+        valid_products[pid] = product
+
+    return valid_products
+
 
 # Home route - show login form by default
 @main.route('/')
 def home():
-    return render_template('home.html', form_type='login')
+    products = get_products()  # <-- get dictionary, not function
+    return render_template('home.html', products=products)
+
 
 # Admin login route
 @main.route('/admin-login', methods=['GET', 'POST'])
